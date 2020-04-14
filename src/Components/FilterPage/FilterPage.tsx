@@ -1,7 +1,8 @@
 import React from "react";
+import { Text } from "react-native";
 
 const FilterPage: React.StatelessComponent = () => {
-  return <>Filter Page</>;
+  return <Text>Filter Page</Text>;
 };
 
 export default FilterPage;

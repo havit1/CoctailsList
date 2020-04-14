@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import HomePage from "./Components/HomePage/HomePage";
 import FilterPage from "./Components/FilterPage/FilterPage";
+import { Button } from "react-native";
 
 type RootStackParamList = {
   Home: undefined;
@@ -26,6 +27,15 @@ const Navigator: React.StatelessComponent<NavigatorProps> = ({
         <RootStack.Screen
           name="Home"
           component={(): any => <HomePage coctails={coctails} />}
+          options={({ navigation }) => ({
+            headerTitle: "Drinks",
+            headerRight: () => (
+              <Button
+                onPress={() => navigation.navigate("FilterPage")}
+                title="Info"
+              />
+            ),
+          })}
         />
         <RootStack.Screen name="FilterPage" component={FilterPage} />
       </RootStack.Navigator>

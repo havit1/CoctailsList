@@ -1,5 +1,6 @@
 import React from "react";
-import { Text, View, FlatList } from "react-native";
+import { Text, View, FlatList, Image } from "react-native";
+import { homePageStyles } from "../../styles/HomePageStyles";
 
 interface HomePageProps {
   coctails: Array<{
@@ -27,7 +28,15 @@ const HomePage: React.StatelessComponent<HomePageProps> = ({
       data={coctails}
       keyExtractor={(item) => item.idDrink}
       renderItem={(render) => {
-        return <Text key={render.index}>{render.item.strDrink}</Text>;
+        return (
+          <View>
+            <Image
+              style={{ width: 50, height: 50 }}
+              source={{ uri: render.item.strDrinkThumb }}
+            />
+            <Text key={render.index}>{render.item.strDrink}</Text>
+          </View>
+        );
       }}
     />
   );
