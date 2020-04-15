@@ -1,15 +1,12 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
+import { FontAwesome } from "@expo/vector-icons";
 
 import HomePage from "./Components/HomePage/HomePage";
 import FilterPage from "./Components/FilterPage/FilterPage";
-import { FontAwesome } from "@expo/vector-icons";
 
-import {
-  CoctailsListInterface,
-  FiltersListInterface,
-} from "./Interfaces/index";
+import { FiltersListInterface } from "./Interfaces/index";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 type RootStackParamList = {
@@ -18,24 +15,18 @@ type RootStackParamList = {
 };
 
 export interface NavigatorProps extends FiltersListInterface {
-  coctails: Array<CoctailsListInterface>;
   addRemoveFilter: Function;
-  choosedFilters: Array<String>;
-  navigation: object;
+  choosedFilters: Array<string>;
 }
 
-const Navigator: React.StatelessComponent<any> = ({
-  coctails,
+const Navigator: React.StatelessComponent<NavigatorProps> = ({
   filters,
   addRemoveFilter,
   choosedFilters,
-  setListNumber,
 }) => {
   const RootStack = createStackNavigator<RootStackParamList>();
 
-  const Home = () => (
-    <HomePage setListNumber={setListNumber} coctails={coctails} />
-  );
+  const Home = () => <HomePage choosedFilters={choosedFilters} />;
 
   const Filters = () => (
     <FilterPage
