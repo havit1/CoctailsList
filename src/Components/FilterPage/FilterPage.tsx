@@ -34,7 +34,6 @@ const FilterPage: React.StatelessComponent<FilterPagePropsInterface> = ({
               <TouchableOpacity
                 style={styles.row}
                 onPress={() => {
-                  // addRemoveFilter(item.strCategory);
                   if (selectedFilters.indexOf(item.strCategory) > -1) {
                     const list = [...selectedFilters].filter(
                       (el) => el !== item.strCategory

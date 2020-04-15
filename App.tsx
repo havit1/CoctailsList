@@ -13,8 +13,6 @@ export default function App() {
   const [listNumber, setListNumber] = useState<number>(0);
 
   useEffect(() => {
-    console.log("Loding 3");
-
     const filters = filtersRequest();
     filters.then((data): void => {
       setChoosedFilters((state) =>
@@ -26,11 +24,10 @@ export default function App() {
 
   const setNextListNumber = () => {
     if (listNumber === choosedFilters.length - 1) return;
-    else setListNumber((state) => state + 1);
+    setListNumber((state) => state + 1);
   };
 
   useEffect(() => {
-    console.log(listNumber);
     if (choosedFilters.length === 0) return;
 
     const filteredDrink = filteredDrinkRequest(choosedFilters[listNumber]);
@@ -41,7 +38,6 @@ export default function App() {
 
   useEffect(() => {
     if (coctailsList.length === 0 && choosedFilters.length === 1) {
-      console.log("Loding 1");
       let filteredDrink = filteredDrinkRequest(choosedFilters[0]);
       filteredDrink.then((data) => {
         setConcatilsList([data]);
@@ -50,8 +46,6 @@ export default function App() {
   }, [choosedFilters]);
 
   useEffect(() => {
-    console.log("Loding 2");
-
     setConcatilsList([]);
     if (listNumber !== 0) {
       setListNumber(0);
