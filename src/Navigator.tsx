@@ -21,6 +21,7 @@ export interface NavigatorProps extends FiltersListInterface {
   coctails: Array<CoctailsListInterface>;
   addRemoveFilter: Function;
   choosedFilters: Array<String>;
+  navigation: object;
 }
 
 const Navigator: React.StatelessComponent<any> = ({

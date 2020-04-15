@@ -13,26 +13,35 @@ export default function App() {
   const [listNumber, setListNumber] = useState<number>(0);
 
   useEffect(() => {
+    console.log("Loding 3");
+
     const filters = filtersRequest();
     filters.then((data): void => {
-      setChoosedFilters([data.drinks[0].strCategory]);
+      setChoosedFilters((state) =>
+        data.drinks.map((f: { strCategory: string }) => f.strCategory)
+      );
       setFiltersList(data.drinks);
-      let filteredDrink = filteredDrinkRequest(data.drinks[0].strCategory);
-      filteredDrink.then((data) => {
-        setConcatilsList([data]);
-      });
     });
   }, []);
 
   const setNextListNumber = () => {
     if (listNumber === choosedFilters.length - 1) return;
-    setListNumber((val) => val + 1);
+    else setListNumber((state) => state + 1);
   };
 
   useEffect(() => {
-    console.log(coctailsList.length, choosedFilters.length);
+    console.log(listNumber);
+    if (choosedFilters.length === 0) return;
 
-    if (coctailsList.length === 0 && choosedFilters.length > 0) {
+    const filteredDrink = filteredDrinkRequest(choosedFilters[listNumber]);
+    filteredDrink.then((data) => {
+      setConcatilsList((state) => [...state, data]);
+    });
+  }, [listNumber]);
+
+  useEffect(() => {
+    if (coctailsList.length === 0 && choosedFilters.length === 1) {
+      console.log("Loding 1");
       let filteredDrink = filteredDrinkRequest(choosedFilters[0]);
       filteredDrink.then((data) => {
         setConcatilsList([data]);
@@ -41,31 +50,23 @@ export default function App() {
   }, [choosedFilters]);
 
   useEffect(() => {
-    if (choosedFilters.length === 0) return;
-    let filteredDrink;
-    console.log(listNumber, choosedFilters);
-    filteredDrink = filteredDrinkRequest(choosedFilters[listNumber]);
-    filteredDrink.then((data) => {
-      setConcatilsList((state) => [...state, data]);
-    });
-  }, [listNumber]);
+    console.log("Loding 2");
 
-  const addRemoveFilter = (filter: string): void => {
-    if (choosedFilters.indexOf(filter) > -1) {
-      const list = [...choosedFilters].filter((el) => el !== filter);
-      setChoosedFilters(list);
-      setConcatilsList([]);
+    setConcatilsList([]);
+    if (listNumber !== 0) {
       setListNumber(0);
-    } else {
-      const list = [...choosedFilters, filter];
-      setChoosedFilters(list);
+    } else if (choosedFilters.length > 0) {
+      let filteredDrink = filteredDrinkRequest(choosedFilters[0]);
+      filteredDrink.then((data) => {
+        setConcatilsList([data]);
+      });
     }
-  };
+  }, [choosedFilters]);
 
   return (
     <Navigator
       setListNumber={setNextListNumber}
-      addRemoveFilter={addRemoveFilter}
+      addRemoveFilter={setChoosedFilters}
       coctails={coctailsList}
       filters={filtersList}
       choosedFilters={choosedFilters}
