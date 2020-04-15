@@ -5,23 +5,16 @@ export default StyleSheet.create({
     flex: 1,
     padding: 20,
   },
-  nameText: {
-    fontSize: 13,
-    color: "grey",
-    marginBottom: 25,
-  },
-  drinkRow: {
+  row: {
     flex: 1,
     flexDirection: "row",
-    marginBottom: 40,
+    justifyContent: "space-between",
     alignItems: "center",
+    paddingTop: 10,
+    paddingBottom: 10,
+    height: 50,
   },
-  image: {
-    width: 90,
-    height: 90,
-  },
-  name: {
-    marginLeft: 25,
+  text: {
     fontSize: 16,
     color: "grey",
   },

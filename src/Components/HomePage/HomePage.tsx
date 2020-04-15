@@ -1,40 +1,34 @@
 import React from "react";
 import { Text, View, FlatList, Image } from "react-native";
-import { homePageStyles } from "../../styles/HomePageStyles";
-
+import styles from "../../styles/HomePageStyles";
+import { CoctailsListInterface } from "../../Interfaces/index";
 interface HomePageProps {
-  coctails: Array<{
-    idDrink: string;
-    strDrink: string;
-    strDrinkThumb: string;
-  }>;
-}
-
-interface drinkInterface extends HomePageProps {
-  index: number;
-  separators?: Object;
+  coctails: Array<CoctailsListInterface>;
+  setListNumber: Function;
 }
 
 const HomePage: React.StatelessComponent<HomePageProps> = ({
   coctails = [],
+  setListNumber,
 }) => {
   return (
-    <FlatList<{
-      idDrink: string;
-      strDrink: string;
-      strDrinkThumb: string;
-    }>
-      style={{ height: "100%" }}
+    <FlatList<CoctailsListInterface>
       data={coctails}
-      keyExtractor={(item) => item.idDrink}
+      keyExtractor={(item) => item.name}
+      onEndReached={() => setListNumber()}
       renderItem={(render) => {
         return (
-          <View>
-            <Image
-              style={{ width: 50, height: 50 }}
-              source={{ uri: render.item.strDrinkThumb }}
-            />
-            <Text key={render.index}>{render.item.strDrink}</Text>
+          <View style={styles.listContainer} key={render.index}>
+            <Text style={styles.nameText}>{render.item.name}</Text>
+            {render.item.drinks.map((drink) => (
+              <View style={styles.drinkRow} key={drink.idDrink}>
+                <Image
+                  style={styles.image}
+                  source={{ uri: drink.strDrinkThumb }}
+                />
+                <Text style={styles.name}>{drink.strDrink}</Text>
+              </View>
+            ))}
           </View>
         );
       }}

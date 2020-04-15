@@ -5,17 +5,13 @@ export interface CoctailInterface {
 }
 
 export interface CoctailsListInterface {
-  coctails: Array<CoctailInterface>;
+  drinks: Array<CoctailInterface>;
+  name: string;
 }
 
 export interface DrinkInterface extends CoctailsListInterface {
   index: number;
   separators?: Object;
-}
-
-export interface NavigatorProps {
-  coctails: Array<{ idDrink: string; strDrink: string; strDrinkThumb: string }>;
-  filters: object[];
 }
 
 export interface FilterInterface {
